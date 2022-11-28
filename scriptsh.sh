@@ -12,10 +12,10 @@ sleep 2
 java -version
 if [ $? -eq 0 ]
 	then
-	
+
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : O java já está instalado nessa máquina!!"
 		sleep 2
-	
+
 	else
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) Não identificamos nenhuma versão do Java instalado, iremos instalar agora!"
 		sleep 2
@@ -50,75 +50,82 @@ if [ $? -eq 0 ]
 
 	else
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : O docker não está instalado, iremos providenciar sua instalação"
-	
+
 		sleep 3
-		
+
 		sudo apt-get purge -y docker docker.io 
-		
+
 		sleep 3
-		
+
 		sudo apt-get autoremove -y --purge docker docker.io 
-		
+
 		sleep 3
-		
+
 		sudo rm -rf /var/lib/docker /etc/docker
-		
+
 		sleep 3
 
 		sudo rm /etc/apparmor.d/docker
-		
+
 		sleep 3
 
 		sudo groupdel docker
-		
+
 		sleep 3
 
 		sudo rm -rf /var/run/docker.sock
-		
-		sleep 3
-	
-		sudo apt install docker.io -y
-		
-		sleep 3
-	
-		clear
-		
-		sudo systemctl start docker
-		
-		sleep 3
-		
-		sudo systemctl enable docker
-		
-		sleep 3
-		
-		sudo service docker start
 
 		sleep 3
-		
+
+		sudo apt install docker.io -y
+
+		sleep 3
+
+		clear
+
+		sudo systemctl start docker
+
+		sleep 3
+
+		sudo systemctl enable docker
+
+		sleep 3
+
 		sudo service docker start
-		
+
+
+
+		sleep 3
+
+		sudo service docker start
+
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Buscando imagem do mysql..."
 		sleep 3
-		
+
 		git clone https://github.com/BH-Beehive/dockerfileForMysql.git
-		
+
 		cd dockerfileForMysql
-		sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-		
-		sudo chmod +x /usr/local/bin/docker-compose
-		
-		sudo docker-compose up -d
-		
+
+		sudo docker build -t bdbeehive .
+
+		sudo docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name beehive --restart always bdbeehive
+
 		sleep 3
-		
+
+		sudo apt install mysql-client-core-8.0
+
+		sleep 3
+
+		sudo docker exec -i beehive mysql -h172.17.0.2 -uroot -p123456
+
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : O Docker está no ar!!"
-		
+
 		sleep 2
-		
+
 		cd ..
-		
+
 		clear
-		
+
 	fi
 
 echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Agora iremos verificar o sistema Beehive"
@@ -127,18 +134,18 @@ sleep 2
 
 file="projeto-java-1.0-SNAPSHOT-jar-with-dependencies.jar"
 
-		
+
 		            if [ -e ./Desktop/$file ] 
                         then
-						
+
                         echo "O Beehive está instalado iremos iniciá-lo ..."
-						
+
                         cd Desktop
 
                         chmod -X $file
-						
+
 						sleep 3
-						
+
                         java -jar $file
                 else
                         echo "O sistema não está instalado !, Iremos instalá-lo antes de iniciar"
@@ -148,24 +155,24 @@ file="projeto-java-1.0-SNAPSHOT-jar-with-dependencies.jar"
                         git clone https://github.com/BH-Beehive/aplicacao-java.git
 						clear
 						echo "Aplicação instalada!"
-						
+
                         cd aplicacao-java/projeto-java/target/
                         mv projeto-java-1.0-SNAPSHOT-jar-with-dependencies.jar ~/Desktop/
-		
+
                         cd ~/Desktop/
-						
+
 						mv aplicacao-java .aplicacao-java
-						
+
                         chmod +x $file
-						
+
 						echo "Preparando para iniciar..."
-						
+
 						sleep 3
-						
+
                         java -jar $file
                 fi
- 
- 
+
+
 
 # ===================================================================
 # Todos direitos reservados para o autor: Dra. Profa. Marise Miranda.

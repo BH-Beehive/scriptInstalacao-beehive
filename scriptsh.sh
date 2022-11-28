@@ -93,12 +93,6 @@ if [ $? -eq 0 ]
 
 		sudo service docker start
 
-
-
-		sleep 3
-
-		sudo service docker start
-
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : Buscando imagem do mysql..."
 		sleep 3
 

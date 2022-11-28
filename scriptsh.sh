@@ -92,9 +92,7 @@ if [ $? -eq 0 ]
 		sleep 3
 		
 		sudo service docker start
-	
-		
-		
+
 		sleep 3
 		
 		sudo service docker start
@@ -106,17 +104,9 @@ if [ $? -eq 0 ]
 		
 		cd dockerfileForMysql
 		
-		sudo docker build -t bdbeehive .
-		
-		sudo docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name beehive --restart always bdbeehive
+		sudo docker-compose up -d
 		
 		sleep 3
-		
-		sudo apt install mysql-client-core-8.0
-		
-		sleep 3
-		
-		sudo docker exec -i beehive mysql -h172.17.0.2 -uroot -p123456
 		
 		echo "$(tput setaf 10)[Bot assistant]:$(tput setaf 7) : O Docker está no ar!!"
 		
